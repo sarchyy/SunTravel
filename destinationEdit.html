@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Destination</title>
+  <link rel="stylesheet" th:href="@{/styles.css}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    form input, form textarea, form select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    form .btn {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    form .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Edit Destination</h1>
+  <form th:action="@{/destinations/edit/{id}(id=${destination.id})}" method="post">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" th:value="${destination.name}" required>
+
+    <label for="description">Description</label>
+    <textarea id="description" name="description" rows="5" required th:text="${destination.description}"></textarea>
+
+    <label for="price">Price</label>
+    <input type="number" step="0.01" id="price" name="price" th:value="${destination.price}" required>
+
+    <label for="country">Country</label>
+    <input type="text" id="country" name="country" th:value="${destination.country}" required>
+
+    <label for="active">Active</label>
+    <select id="active" name="active">
+      <option value="true" th:selected="${destination.active}">Yes</option>
+      <option value="false" th:selected="${!destination.active}">No</option>
+    </select>
+
+    <label for="filePath">Image Path</label>
+    <input type="text" id="filePath" name="filePath" th:value="${destination.filePath}">
+
+    <button type="submit" class="btn">Save Changes</button>
+  </form>
+  <a th:href="@{/destinations}" class="back-link">Back to Destinations</a>
+</div>
+</body>
+</html>

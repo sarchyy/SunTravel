@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunTravel Destinations</title>
+    <style>
+        body {
+            background-color: #f1c40f;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .suntravel-navbar {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .suntravel-navbar h1 {
+            margin: 0;
+            color: #333;
+        }
+
+        .suntravel-navbar-buttons {
+            margin-top: 20px;
+        }
+
+        .suntravel-btn {
+            background-color: #f1c40f;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .suntravel-btn:hover {
+            background-color: #e0a800;
+        }
+
+
+        .suntravel-cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .suntravel-card {
+            background-color: white;
+            width: 300px;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .suntravel-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .suntravel-card h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .suntravel-card p {
+            color: #666;
+        }
+
+        .view-details-btn {
+            background-color: #f1c40f;
+        }
+
+        .view-details-btn:hover {
+            background-color: #e0a800;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            border: none;
+            padding: 10px;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .suntravel-footer {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .suntravel-footer p {
+            margin: 0;
+            color: #333;
+        }
+
+        .suntravel-footer a {
+            color: #f1c40f;
+            text-decoration: none;
+        }
+
+        .suntravel-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="suntravel-navbar">
+    <h1>Welcome to SunTravel</h1>
+    <nav class="suntravel-navbar-buttons">
+        <a href="/users" class="suntravel-btn" aria-label="Manage Users">Manage Users</a>
+        <a href="/destinations" class="suntravel-btn" aria-label="View Destinations">View Destinations</a>
+        <a href="/bookings" class="suntravel-btn" aria-label="Book Travel">Book Travel</a>
+        <a href="/about" class="suntravel-btn" aria-label="About Us">About Us</a>
+        <a href="/destinations/create" class="suntravel-btn" aria-label="Create Destination">Create Destination</a>
+    </nav>
+</header>
+
+<main class="suntravel-cards-container">
+
+    <article th:each="destination : ${destinations}" class="suntravel-card">
+        <img th:src="@{${destination.filePath}}" alt="Image" />
+
+        <h3 th:text="${destination.name}">Destination Name</h3>
+        <p th:text="${destination.description}">Description</p>
+        <p>Price: <span th:text="${destination.price}">Price</span></p>
+        <a th:href="@{/destinations/details/{id}(id=${destination.id})}" class="suntravel-btn view-details-btn">View Details</a>
+
+        <form th:action="@{/destinations/delete/{id}(id=${destination.id})}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit" class="suntravel-btn delete-btn">Delete</button>
+        </form>
+
+
+
+    </article>
+
+</main>
+
+<footer class="suntravel-footer">
+    <p>&copy; 2024 SunTravel. All rights reserved.</p>
+    <a href="mailto:info@suntravel.com">Email Us</a>
+</footer>
+
+</body>
+</html>

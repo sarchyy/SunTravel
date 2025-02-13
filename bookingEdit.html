@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Booking</title>
+  <link rel="stylesheet" th:href="@{/styles.css}">
+
+</head>
+<body>
+<div class="container mt-5">
+  <h1>Edit Booking</h1>
+  <form th:action="@{/bookings/edit/{bookingId}(bookingId=${booking.id})}" method="post">
+    <div class="mb-3">
+      <label for="userId" class="form-label">User ID</label>
+      <input type="number" id="userId" name="userId" class="form-control" th:value="${booking.userId}" required>
+    </div>
+    <div class="mb-3">
+      <label for="destinationId" class="form-label">Destination ID</label>
+      <input type="number" id="destinationId" name="destinationId" class="form-control" th:value="${booking.destinationId}" required>
+    </div>
+    <div class="mb-3">
+      <label for="date" class="form-label">Date</label>
+      <input type="date" id="date" name="date" class="form-control" th:value="${booking.date}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a href="/bookings" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+</body>
+</html>

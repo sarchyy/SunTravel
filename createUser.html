@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <style>
+
+        .form-control {
+            color: black;
+        }
+
+
+        .error {
+            color: black;
+        }
+
+        .error span {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+
+    <div class="create-user-container">
+        <h2 class="create-user-title">Create New User</h2>
+
+        <form th:action="@{/users/create}" method="post" th:object="${user}">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+                <div th:if="${#fields.hasErrors('firstName')}" class="error">
+                    <span th:errors="*{firstName}"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+                <div th:if="${#fields.hasErrors('lastName')}" class="error">
+                    <span th:errors="*{lastName}"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" required>
+                <div th:if="${#fields.hasErrors('email')}" class="error">
+                    <span th:errors="*{email}"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create User</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

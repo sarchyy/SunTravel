@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Details</title>
+  <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+
+
+
+<div class="navbar">
+  <div class="logo">
+    <a href="/">SunTravel</a>
+  </div>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/destinations">Destinations</a>
+    <a href="/about">About Us</a>
+
+  </div>
+</div>
+
+
+<div class="booking-details-container">
+  <h1 class="booking-details-title">Booking Details</h1>
+  <div class="booking-details-card">
+    <div class="booking-details-body">
+
+      <table class="booking-details-table">
+        <tr>
+          <th>ID</th>
+          <td><span th:text="${booking.id}"></span></td>
+        </tr>
+        <tr>
+          <th>User ID</th>
+          <td><span th:text="${booking.userId}"></span></td>
+        </tr>
+        <tr>
+          <th>Destination ID</th>
+          <td><span th:text="${booking.destinationId}"></span></td>
+        </tr>
+        <tr>
+          <th>Date</th>
+          <td><span th:text="${booking.date}"></span></td>
+          <td>
+            <th:block sec:authorize="hasAnyRole('admin', 'user')">
+              <a th:href="@{/bookings/edit/{bookingId}(bookingId=${booking.id})}"
+                 class="booking-action-btn booking-btn-edit">Edit</a>
+            </th:block>
+            <th:block sec:authorize="hasRole('admin')">
+              <a th:href="@{/bookings/delete/{bookingId}(bookingId=${booking.id})}"
+                 class="booking-action-btn booking-btn-delete">Delete</a>
+            </th:block>
+          </td>
+        </tr>
+      </table>
+
+      <a href="/bookings" class="btn btn-back">Back to Booking List</a>
+    </div>
+  </div>
+</div>
+
+
+<div class="footer">
+  <p>&copy; 2024 SunTravel | All Rights Reserved</p>
+</div>
+
+</body>
+</html>

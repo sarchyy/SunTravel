@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunTravel Destinations</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <style>
+
+    </style>
+</head>
+<body>
+
+<header class="suntravel-navbar">
+    <h1>Welcome to SunTravel</h1>
+    <nav class="suntravel-navbar-buttons">
+        <a th:href="@{/users}" class="suntravel-btn" aria-label="Manage Users">Manage Users</a>
+        <a th:href="@{/destinations}" class="suntravel-btn" aria-label="View Destinations">View Destination</a>
+        <a th:href="@{/bookings}" class="suntravel-btn" aria-label="Book Travel">Book Travel</a>
+        <a th:href="@{/about}" class="suntravel-btn" aria-label="About Us">About Us</a>
+        <a th:href="@{/destinations/create}" class="suntravel-btn" aria-label="Create Destination">Create Destination</a>
+    </nav>
+</header>
+
+<!-- Destination Cards -->
+<main class="suntravel-cards-container">
+    <!-- Mostar -->
+    <article class="suntravel-card" th:each="destination : ${destinations}">
+        <img th:src="@{${destination.filePath}}" alt="Destination Image" />
+        <h3 th:text="${destination.name}">Destination Name</h3>
+        <p th:text="${destination.description}">Destination Description</p>
+        <p th:text="'Price: $' + ${destination.price}">Price: $0</p>
+        <a th:href="@{/destinations/details/{id}(id=${destination.id})}"
+           class="suntravel-btn view-details-btn">View Details</a>
+        <a th:href="@{/destinations/delete/{id}(id=${destination.id})}"
+           class="suntravel-btn delete-btn"
+           th:attr="aria-label='Delete ' + ${destination.name}">Delete</a>
+    </article>
+</main>
+
+<!-- Footer -->
+<footer class="suntravel-footer">
+    <p>&copy; 2024 SunTravel. All rights reserved.</p>
+    <p>Contact us: <a href="mailto:info@suntravel.com">info@suntravel.com</a></p>
+</footer>
+
+</body>
+</html>
